@@ -125,9 +125,13 @@ namespace ConsoleApp1
             var title = "Problem05";
             StartProblem(title);
 
-            var firstTriange = triList.Select(t => t.CalcArea()).FirstOrDefault(a => a > 1000d);
-            Console.WriteLine($"面積が1000以上の三角形の最初の面積は{firstTriange}");
-
+            //CalcAreaを2回書くのは若干イマイチ感。。。
+            //先にSelectするのもちょっとね。
+            var firstTriange = triList.FirstOrDefault(t => t.CalcArea() > 1000d);
+            if (firstTriange != null)
+            {
+                Console.WriteLine($"面積が1000以上の三角形の最初の面積は{firstTriange.CalcArea()}");
+            }
             EndProblem(title);
         }
 
