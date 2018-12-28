@@ -20,14 +20,19 @@ namespace ConsoleApp1
             fileName = args[0];
             Prepare();
 
+            var shapeList = new List<IShape>();
             var triList = new List<Triangle>();
-            triList.AddRange(parsedArgs.Select(p => new Triangle(double.Parse(p.TriangleBottom), double.Parse(p.TriangleHeight))));
-
             var squList = new List<Square>();
-            squList.AddRange(parsedArgs.Select(p => new Square(double.Parse(p.SquareBottom), double.Parse(p.SquareHeight))));
-
             var cirList = new List<Circle>();
-            cirList.AddRange(parsedArgs.Select(p => new Circle(double.Parse(p.CircleRadius))));
+            foreach (var p in parsedArgs)
+            {
+                triList.Add(new Triangle(double.Parse(p.TriangleBottom), double.Parse(p.TriangleHeight)));
+                squList.Add(new Square(double.Parse(p.SquareBottom), double.Parse(p.SquareHeight)));
+                cirList.Add(new Circle(double.Parse(p.CircleRadius)));
+            }
+            shapeList.AddRange(triList);
+            shapeList.AddRange(squList);
+            shapeList.AddRange(cirList);
 
             //2. 100組の底辺と高さの組み合わせの数値列を読み込ませて、面積を計算して出力する
             Problem02(triList);
@@ -67,11 +72,7 @@ namespace ConsoleApp1
             Problem15(cirList);
 
             //17.三角形クラス、長方形クラス、円クラスの面積の合計をまとめて計算してくれるメソッドを作成する
-            var shapes = new List<IShape>();
-            shapes.AddRange(triList);
-            shapes.AddRange(squList);
-            shapes.AddRange(cirList);
-            Problem17(shapes);
+            Problem17(shapeList);
         }
 
         #region 練習問題
